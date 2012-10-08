@@ -5930,6 +5930,7 @@ Viva.Graph.View.renderer = function(graph, settings) {
                         resetStable();
                     },
                     onDrag : function(e, offset){
+                        node.isDragging = true;
                         node.position.x += offset.x / transform.scale;
                         node.position.y += offset.y / transform.scale;
                         userInteraction = true;
@@ -5939,7 +5940,6 @@ Viva.Graph.View.renderer = function(graph, settings) {
                     onStop : function(){
                         node.isPinned = wasPinned;
                         userInteraction = false;
-                        return false
                     } 
                 }
             );
