@@ -116,10 +116,11 @@ Viva.Graph.Layout.forceDirected = function(graph, userSettings) {
             // TODO: what if bodies are not initialized?
             var from = graph.getNode(link.fromId),
                 to = graph.getNode(link.toId);
-            
+            link.data.weight = link.data.weight || 1;
+            link.data.len = link.data.len || (link.data.weight * settings.springLength);
             updateNodeMass(from);
             updateNodeMass(to);
-            link.force_directed_spring = forceSimulator.addSpring(from.force_directed_body, to.force_directed_body, -1.0, link.weight);
+            link.force_directed_spring = forceSimulator.addSpring(from.force_directed_body, to.force_directed_body, link.data.len, settings.springCoeff);
         },
         
         releaseLink = function(link) {
