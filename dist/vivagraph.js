@@ -2883,7 +2883,7 @@ Viva.Graph.Layout.forceDirected = function(graph, userSettings) {
         
         updateNodeMass = function(node){
             var body = node.force_directed_body; 
-            body.mass = 1 + graph.getLinks(node.id).length / 3.0;
+            body.mass = 1 //+ graph.getLinks(node.id).length / 3.0;
         },
         
         initNode = function(node) {
@@ -2891,8 +2891,12 @@ Viva.Graph.Layout.forceDirected = function(graph, userSettings) {
             if (!body){
                 // TODO: rename position to location or location to position to be consistent with
                 // other places.
+                if (node.data.position) {
+                    node.position = node.data.position;
+                    node.data.position = null;
+                }
                 node.position = node.position || getBestNodePosition(node);
-                    
+
                 body = new Viva.Graph.Physics.Body();
                 node.force_directed_body = body;
                 updateNodeMass(node);
@@ -2918,8 +2922,8 @@ Viva.Graph.Layout.forceDirected = function(graph, userSettings) {
                 to = graph.getNode(link.toId);
             link.data.weight = link.data.weight || 1;
             link.data.len = link.data.len || (link.data.weight * settings.springLength);
-            updateNodeMass(from);
-            updateNodeMass(to);
+            //updateNodeMass(from);
+            //updateNodeMass(to);
             link.force_directed_spring = forceSimulator.addSpring(from.force_directed_body, to.force_directed_body, link.data.len, settings.springCoeff);
         },
         
